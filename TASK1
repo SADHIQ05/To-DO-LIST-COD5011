@@ -1,0 +1,225 @@
+CREATE A TO-DOLIST USING HTML,CSS, JAVASCRIPT ?
+#HTML CODE...............
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="todo_list.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="todo-app">
+            <h2 class="heading"><img src="list.png" alt="" >To-Do List </h2>
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add your task ...">
+                <button onclick="addTask()" id="add">Add</button>
+            </div>
+            <ul id="list-container">
+            </ul>
+        </div>
+    </div>
+
+    <script src="todo_list.js"></script>
+</body>
+</html>
+
+#CSS FOR THE SAME.......
+:root {
+  --white-alpha-40: rgba(255, 255, 255, 0.4);
+  --white-alpha-25: rgba(255, 255, 255, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: rgb(185, 236, 108);
+  padding: 50px;
+}
+
+.todo-app {
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--white-alpha-25);
+  border: 1px solid var(--white-alpha-40);
+  margin: 100px auto 20px;
+  padding: 40px 30px 70px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 25px 5px rgba(110, 104, 104, 0.7);
+}
+
+.todo-app h2 {
+  color: #cc2b5e;
+  display: flex;
+  font-size: 30px;
+  align-items: center;
+  margin-bottom: 50px;
+  text-shadow: 1px 1px 2px black;
+}
+
+.todo-app h2 img {
+  width: 40px;
+  margin-right: 10px;
+  text-shadow: 2px 2px 2px black;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e09898;
+  border-radius: 10px;
+  padding-left: 20px;
+  margin-bottom: 25px;
+}
+
+input {
+  flex: 1;
+  border: none;
+  outline: none;
+  color: #000;
+  background: transparent;
+  padding: 10px;
+  font-weight: 14px;
+}
+
+button {
+  border: none;
+  outline: none;
+  padding: 16px 50px;
+  background: #e23d2a;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #cc2b5e;
+  color: #fff;
+}
+
+ul li {
+  list-style: none;
+  font-size: 17px;
+  padding: 12px 8px 12px 50px;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+}
+
+ul li::before {
+  content: "";
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  border-radius: 50px;
+  background-image: url("images/icon.png");
+  background-size: cover;
+  background-position: center;
+  top: 7px;
+  left: 8px;
+}
+
+ul li.checked {
+  color: #555;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  background-image: url("images/check.png");
+  height: 50px;
+  width: 50px;
+  margin-top: -8px;
+  margin-left: -10px;
+}
+
+ul li span {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  color: #555;
+  line-height: 40px;
+  text-align: center;
+}
+
+ul li span:hover {
+  background: #edeef0;
+}
+
+/* Responsive Design  */
+
+@media (max-width: 760px) {
+  .container {
+    height: 100%;
+    width: 100%;
+  }
+
+  .row {
+    max-width: 400px;
+  }
+
+  button {
+    max-width: 400px;
+    padding: 10px;
+    font-size: 15px;
+  }
+}
+#JAVASCRIPT IMPLEMENTATION.....
+const inputbox = document.getElementById("input-box");
+const listcontainer = document.getElementById("list-container");
+
+function addTask() {
+  if (inputbox.value === "") {
+    alert("Write any Task to get added");
+  } else {
+    let li = document.createElement("li");
+    li.innerHTML = inputbox.value;
+    listcontainer.appendChild(li);
+    let span = document.createElement("span");
+    span.innerHTML = "\u00d7";
+    li.appendChild(span);
+  }
+  inputbox.value = "";
+  savedata();
+}
+
+listcontainer.addEventListener(
+  "click",
+  function (e) {
+    if (e.target.tagName === "LI") {
+      e.target.classList.toggle("checked");
+      savedata();
+    } else if (e.target.tagName === "SPAN") {
+      e.target.parentElement.remove();
+      savedata();
+    }
+  },
+  false
+);
+
+function savedata() {
+  localStorage.setItem("data", listcontainer.innerHTML);
+}
+
+function showlist() {
+  listcontainer.innerHTML = localStorage.getItem("data");
+}
+
+showlist();
