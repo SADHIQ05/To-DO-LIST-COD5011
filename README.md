@@ -2,6 +2,8 @@ TITLE: CodTech IT Solutions Internship - Task Documentation: “To-DO LIST” Us
 INTERN INFORMATION: 
 Name: B ABDUL SADHIQ BASHA
 ID: C0D5011 
+
+
 INTRODUCTION
 
 In the realm of personal productivity and organizational tools, the to-do list occupies a central role, universally recognized for its simplicity and effectiveness in managing tasks and priorities. The evolution from paper-based lists to digital platforms has significantly expanded the functionality and accessibility of to-do lists, making them an indispensable tool for individuals looking to optimize their time and manage their responsibilities efficiently. This project aims to further innovate in this space by developing a To-Do List application utilizing the power of modern web technologies: JavaScript, HTML, and CSS.
